@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ConcordiaBook</title>
+    <link rel="stylesheet" href="{% static 'textbook_list_style.css' %}">
+
+</head>
+<body>
+{% block content %}
+<h2>Available Textbooks for {{ course_code }}</h2>
+{% if textbooks %}
+<ul>
+    {% for book in textbooks %}
+        <li>
+            <strong>{{ book.title }}</strong><br>
+            <ul class="details">
+                <li> Author: {{ book.author }}</li>
+                {% if book.edition %}<li> Edition: {{ book.edition }}</li>{% endif %}
+                <li> Condition: {{ book.get_condition_display }}</li>
+                <li> Course Code: {{ book.course_code }}</li>
+            </ul>
+        </li>
+        {% endfor %}
+</ul>
+{% else %}
+<p>No textbooks are currently available for this course.</p>
+{% endif %}
+{% endblock %}
+
+</body>
+</html>
